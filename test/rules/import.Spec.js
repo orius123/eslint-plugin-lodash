@@ -22,12 +22,25 @@ ruleTester.run('lodash/import', rule, {
       code: 'import { something } from "something"',
       parser: 'babel-eslint'
     },
+
+    {
+      code: 'import { something, other } from "something"',
+      parser: 'babel-eslint'
+    },
     {
       code: 'import { default as other } from "something"',
       parser: 'babel-eslint'
     },
     {
       code: 'import find from "lodash/collection/find"',
+      parser: 'babel-eslint'
+    },
+    {
+      code: 'import { something } from "lodash"',
+      parser: 'babel-eslint'
+    },
+    {
+      code: 'import { default as other } from "lodash"',
       parser: 'babel-eslint'
     }
   ],
@@ -61,17 +74,45 @@ ruleTester.run('lodash/import', rule, {
       }]
     },
     {
-      code: 'import { something } from "lodash"',
+      code: 'import { other, isArray } from "lodash"',
       parser: 'babel-eslint',
       errors: [{
-        message: 'Importing the entire lodash library is not permitted, please import the specific functions you need'
+        message: 'Importing lodash isArray is not recommended use Array.isArray instead'
       }]
     },
     {
-      code: 'import { default as other } from "lodash"',
+      code: 'import { isArray, other } from "lodash"',
       parser: 'babel-eslint',
       errors: [{
-        message: 'Importing the entire lodash library is not permitted, please import the specific functions you need'
+        message: 'Importing lodash isArray is not recommended use Array.isArray instead'
+      }]
+    },
+    {
+      code: 'import { isArray } from "lodash"',
+      parser: 'babel-eslint',
+      errors: [{
+        message: 'Importing lodash isArray is not recommended use Array.isArray instead'
+      }]
+    },
+    {
+      code: 'import isArray from "lodash/isArray"',
+      parser: 'babel-eslint',
+      errors: [{
+        message: 'Importing lodash isArray is not recommended use Array.isArray instead'
+      }]
+    },
+    {
+      code: 'import { default as other } from "lodash/isArray"',
+      parser: 'babel-eslint',
+      errors: [{
+        message: 'Importing lodash isArray is not recommended use Array.isArray instead'
+      }]
+    },
+    {
+      code: 'import differentName from "lodash/isArray"',
+      parser: 'babel-eslint',
+      errors: [{
+        message: 'Importing lodash isArray is not recommended use Array.isArray instead'
       }]
     }
   ]
